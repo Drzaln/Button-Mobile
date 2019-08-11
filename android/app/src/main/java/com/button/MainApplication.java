@@ -1,4 +1,4 @@
-package com.smashthebutton;
+package com.button;
 
 import android.app.Application;
 import android.util.Log;

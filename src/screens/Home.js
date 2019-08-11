@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, StatusBar, Image } from 'react-native'
-import { FAB } from 'react-native-paper'
+import { FAB, TouchableRipple } from 'react-native-paper'
 
 class Home extends Component {
   render () {
@@ -15,7 +15,7 @@ class Home extends Component {
           <View style={styles.poin}>
             <Text style={styles.skor}>0</Text>
           </View>
-          <View style={{ top: '40%' }}>
+          <View style={{ top: '35%' }}>
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
@@ -40,10 +40,15 @@ export default Home
 class DrumGede extends Component {
   render () {
     return (
-      <View style={styles.drumGede}>
-        <View style={styles.drumGedeLuar} />
-        <View style={styles.drumGedeDalem} />
-      </View>
+      <>
+        <View style={styles.drumGede}>
+          <TouchableRipple onPress={() => console.warn('terpencet')} rippleColor='rgba(0, 0, 0, .32)'>
+            <View style={styles.drumGedeLuar}>
+              <View style={styles.drumGedeDalem} />
+            </View>
+          </TouchableRipple>
+        </View>
+      </>
     )
   }
 }
@@ -51,10 +56,15 @@ class DrumGede extends Component {
 class DrumKecil extends Component {
   render () {
     return (
-      <View style={styles.drumKecil}>
-        <View style={styles.drumKecilLuar} />
-        <View style={styles.drumKecilDalem} />
-      </View>
+      <>
+        <View style={styles.drumKecil}>
+          <TouchableRipple onPress={() => console.warn('terpencet')} rippleColor='rgba(0, 0, 0, .32)'>
+            <View style={styles.drumKecilLuar}>
+              <View style={styles.drumKecilDalem} />
+            </View>
+          </TouchableRipple>
+        </View>
+      </>
     )
   }
 }
@@ -92,7 +102,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100 / 2,
-    backgroundColor: '#B65EFF'
+    backgroundColor: '#B65EFF',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   drumGedeDalem: {
     width: 50,
@@ -112,7 +124,9 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 100 / 2,
-    backgroundColor: '#F4FF5E'
+    backgroundColor: '#F4FF5E',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   drumKecilDalem: {
     width: 30,
@@ -131,7 +145,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
-    width: 160,
-    height: 160
+    width: 140,
+    height: 140
   }
 })

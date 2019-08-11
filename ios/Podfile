@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'SmashtheButton' do
-  # Pods for SmashtheButton
+target 'BUTTON' do
+  # Pods for BUTTON
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -30,7 +30,7 @@ target 'SmashtheButton' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'SmashtheButtonTests' do
+  target 'BUTTONTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -38,10 +38,10 @@ target 'SmashtheButton' do
   use_native_modules!
 end
 
-target 'SmashtheButton-tvOS' do
-  # Pods for SmashtheButton-tvOS
+target 'BUTTON-tvOS' do
+  # Pods for BUTTON-tvOS
 
-  target 'SmashtheButton-tvOSTests' do
+  target 'BUTTON-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
