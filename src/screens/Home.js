@@ -15,7 +15,7 @@ class Home extends Component {
           <View style={styles.poin}>
             <Text style={styles.skor}>0</Text>
           </View>
-          <View style={{top:'40%'}} >
+          <View style={{ top: '40%' }}>
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
@@ -29,7 +29,7 @@ class Home extends Component {
               <DrumGede />
             </View>
           </View>
-          <Image source={require('../assets/musik.png')} style={{bottom:0, left:0, position:'absolute', width:140, height:140}} />
+          <Image source={require('../assets/musik.png')} style={styles.musik} />
         </View>
       </>
     )
@@ -126,5 +126,12 @@ const styles = StyleSheet.create({
     height: 20,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  musik: {
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+    width: 160,
+    height: 160
   }
 })
