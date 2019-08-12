@@ -17,8 +17,7 @@ class LeaderBoard extends Component {
         highScore: 304,
         image: 'https://randomuser.me/api/portraits/women/48.jpg'
       }
-      // ...
-    ] // can also be an object of objects!: data: {a:{}, b:{}}
+    ]
   }
 
   render () {
@@ -66,12 +65,21 @@ class LeaderBoard extends Component {
                 <Button
                   mode='text'
                   color='#ff6961'
-                  onPress={() => console.warn('terpencet')}
+                  onPress={() => this.props.navigation.goBack()}
                 >
                   LOGOUT
                 </Button>
               </View>
             </Card>
+
+            <Button
+              mode='contained'
+              color='#248ea9'
+              onPress={() => this.props.navigation.navigate('Login')}
+            >
+              Login to Play
+            </Button>
+
             <Leaderboard
               data={this.state.data}
               sortBy='highScore'

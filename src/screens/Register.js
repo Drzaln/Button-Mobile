@@ -25,19 +25,33 @@ class Login extends Component {
               }}
             >
               <View style={{ alignItems: 'flex-start', width: '100%' }}>
-                <Text style={styles.loginText}>Login</Text>
+                <Text style={styles.loginText}>Register</Text>
               </View>
               <TextInput
                 style={styles.inputText}
                 blurOnSubmit={false}
                 onSubmitEditing={() => {
-                  this.secondTextInput.focus()
+                  this.firstTextInput.focus()
                 }}
                 returnKeyType={'next'}
                 placeholder='Username'
                 placeholderTextColor='grey'
                 clearTextOnFocus
                 autoFocus
+              />
+              <TextInput
+                ref={input => {
+                  this.firstTextInput = input
+                }}
+                style={styles.inputText}
+                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  this.secondTextInput.focus()
+                }}
+                returnKeyType={'next'}
+                placeholder='Email'
+                placeholderTextColor='grey'
+                clearTextOnFocus
               />
               <TextInput
                 ref={input => {
@@ -50,20 +64,20 @@ class Login extends Component {
                 secureTextEntry
               />
               <Button
-                icon='chevron-right'
+                icon='add'
                 mode='contained'
-                onPress={() => this.props.navigation.navigate('Home')}
+                onPress={() => this.props.navigation.navigate('Login')}
                 style={styles.buttonLogin}
               >
-                login
+                register
               </Button>
             </View>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Register')}
+              onPress={() => this.props.navigation.navigate('Login')}
               style={{ alignItems: 'flex-end', marginTop: 16 }}
             >
               <Text style={{ color: 'grey' }}>
-                Don't have account? Sign up here
+                Already have account? Please login
               </Text>
             </TouchableOpacity>
           </View>
