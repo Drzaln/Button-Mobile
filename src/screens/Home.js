@@ -20,7 +20,7 @@ class Home extends Component {
           <View style={styles.poin}>
             <Text style={styles.skor}>0</Text>
           </View>
-          <View style={{ top: '35%', paddingHorizontal: 32 }}>
+          <View style={{ top: '35%', paddingHorizontal: '10%' }}>
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
