@@ -33,17 +33,17 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   drumGedeLuar: {
-    width: 60,
-    height: 60,
-    borderRadius: 100 / 2,
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
     backgroundColor: '#B65EFF',
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 8
   },
   drumGedeDalem: {
-    width: 30,
-    height: 30,
+    width: 80,
+    height: 80,
     borderRadius: 100 / 2,
     backgroundColor: '#6F1EB3',
     position: 'absolute'
@@ -55,8 +55,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  drumKecilLuar: {
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
+    backgroundColor: '#F4FF5E',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 8
+  },
+  drumKecilDalem: {
+    width: 80,
+    height: 80,
+    borderRadius: 100 / 2,
+    backgroundColor: '#AAB330',
+    position: 'absolute'
+  },
+  drumKecil: {
+    width: '100%',
+    height: 20,
+    top: '30%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   body: {
-    top: '10%'
+    top: '25%'
   }
 })
 

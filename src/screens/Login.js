@@ -16,7 +16,12 @@ class Login extends Component {
       <>
         <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
         <View style={styles.background}>
-          <Logo />
+          <View style={{ top: 30, left: -20, position:'absolute' }}>
+            <DrumGede />
+          </View>
+          <View style={{ bottom: 30, right: -20, position:'absolute' }}>
+            <DrumKecil />
+          </View>
           <View style={styles.body}>
             <View
               style={{
@@ -88,17 +93,38 @@ class DrumGede extends Component {
   }
 }
 
+class DrumKecil extends Component {
+  render () {
+    return (
+      <>
+        <View style={styles.drumKecil}>
+            <View style={styles.drumKecilLuar}>
+              <View style={styles.drumKecilDalem} />
+            </View>
+        </View>
+      </>
+    )
+  }
+}
+
 class Logo extends Component {
   render () {
     return (
       <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 2, backgroundColor: 'green' }}>
           <Text style={styles.logo}>BUTT</Text>
         </View>
-        <View style={{ flex: 1, alignItems: 'flex-start', marginRight: 5 }}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'flex-start',
+            marginRight: 5,
+            backgroundColor: 'yellow'
+          }}
+        >
           <DrumGede />
         </View>
-        <View style={{ flex: 3 }}>
+        <View style={{ flex: 3, backgroundColor: 'red' }}>
           <Text style={styles.logo}>N</Text>
         </View>
       </View>

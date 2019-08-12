@@ -16,7 +16,12 @@ class Login extends Component {
       <>
         <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
         <View style={styles.background}>
-          <Logo />
+          <View style={{ top: 30, left: -20, position: 'absolute' }}>
+            <DrumGede />
+          </View>
+          <View style={{ bottom: 30, right: -20, position: 'absolute' }}>
+            <DrumKecil />
+          </View>
           <View style={styles.body}>
             <View
               style={{
@@ -95,6 +100,20 @@ class DrumGede extends Component {
         <View style={styles.drumGede}>
           <View style={styles.drumGedeLuar}>
             <View style={styles.drumGedeDalem} />
+          </View>
+        </View>
+      </>
+    )
+  }
+}
+
+class DrumKecil extends Component {
+  render () {
+    return (
+      <>
+        <View style={styles.drumKecil}>
+          <View style={styles.drumKecilLuar}>
+            <View style={styles.drumKecilDalem} />
           </View>
         </View>
       </>
