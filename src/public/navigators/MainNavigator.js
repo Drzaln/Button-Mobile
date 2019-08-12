@@ -2,7 +2,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import Home from "../../screens/Home";
 import LeaderBoard from "../../screens/LeaderBoard";
-// import Login from "../../screens/Login";
+import Login from "../../screens/Login";
 // import Register from "../../screens/Register";
 // import DetailBook from "../../screens/DetailBook";
 // import AddBook from "../../screens/AddBook";
@@ -11,14 +11,14 @@ import LeaderBoard from "../../screens/LeaderBoard";
 const AppNavigator = createStackNavigator({
     Home,
     LeaderBoard,
-    // Login,
+    Login,
     // Register,
     // DetailBook,
     // AddBook,
     // Profile,
 }, {
     headerMode:'none',
-    initialRouteName:'Home'
+    initialRouteName:'Login'
 })
 
 export default createAppContainer(AppNavigator)
