@@ -14,12 +14,12 @@ class Login extends Component {
   render () {
     return (
       <>
-        <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
+        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" barStyle='dark-content' />
         <View style={styles.background}>
           <View style={{ top: 30, left: -20, position: 'absolute' }}>
             <DrumGede />
           </View>
-          <View style={{ bottom: 30, right: -20, position: 'absolute' }}>
+          <View style={{ bottom: 40, right: -20, position: 'absolute' }}>
             <DrumKecil />
           </View>
           <View style={styles.body}>
