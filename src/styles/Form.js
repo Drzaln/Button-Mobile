@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 100 / 2,
     backgroundColor: '#AAB330',
-    position: 'absolute'
   },
   drumKecil: {
     width: '100%',

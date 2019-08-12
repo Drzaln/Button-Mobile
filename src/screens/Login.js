@@ -19,14 +19,14 @@ class Login extends Component {
           <View style={{ top: 30, left: -20, position:'absolute' }}>
             <DrumGede />
           </View>
-          <View style={{ bottom: 40, right: -20, position:'absolute' }}>
+          <View style={{ top: 40, right: -20, position:'absolute' }}>
             <DrumKecil />
           </View>
           <View style={styles.body}>
             <View
               style={{
                 paddingHorizontal: 16,
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
               }}
             >
               <View style={{ alignItems: 'flex-start', width: '100%' }}>
