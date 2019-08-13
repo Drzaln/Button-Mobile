@@ -1,32 +1,60 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   Text,
   View,
   StatusBar,
-  StyleSheet,
   TextInput,
   TouchableOpacity
 } from 'react-native'
 import { Button } from 'react-native-paper'
+import { login } from "../public/redux/action/user";
 const styles = require('../styles/Form')
 
 class Login extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      user: [],
+      username: '',
+      password: ''
+    }
+  }
+
   render () {
+    const loginAction = () => {
+      this.state.user.push({
+        username: this.state.username,
+        password: this.state.password
+      })
+      loginuser()
+    }
+    let loginuser = async () => {
+      await this.props.dispatch(login(this.state.user[0])).then(() => {
+        this.props.navigation.navigate('Home')
+        console.log('berhasil')
+      })
+    }
+
     return (
       <>
-        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" barStyle='dark-content' />
+        <StatusBar
+          translucent
+          backgroundColor='rgba(0, 0, 0, 0)'
+          barStyle='dark-content'
+        />
         <View style={styles.background}>
-          <View style={{ top: 30, left: -20, position:'absolute' }}>
+          <View style={{ top: 30, left: -20, position: 'absolute' }}>
             <DrumGede />
           </View>
-          <View style={{ top: 40, right: -20, position:'absolute' }}>
+          <View style={{ top: 40, right: -20, position: 'absolute' }}>
             <DrumKecil />
           </View>
           <View style={styles.body}>
             <View
               style={{
                 paddingHorizontal: 16,
-                alignItems: 'flex-end',
+                alignItems: 'flex-end'
               }}
             >
               <View style={{ alignItems: 'flex-start', width: '100%' }}>
@@ -38,6 +66,7 @@ class Login extends Component {
                 onSubmitEditing={() => {
                   this.secondTextInput.focus()
                 }}
+                onChangeText={(username) => this.setState({ username })}
                 returnKeyType={'next'}
                 placeholder='Username'
                 placeholderTextColor='grey'
@@ -48,6 +77,7 @@ class Login extends Component {
                 ref={input => {
                   this.secondTextInput = input
                 }}
+                onChangeText={(password) => this.setState({ password })}
                 style={styles.inputText}
                 placeholder='Password'
                 placeholderTextColor='grey'
@@ -57,7 +87,7 @@ class Login extends Component {
               <Button
                 icon='chevron-right'
                 mode='contained'
-                onPress={() => this.props.navigation.navigate('Home')}
+                onPress={loginAction}
                 style={styles.buttonLogin}
               >
                 login
@@ -77,7 +107,13 @@ class Login extends Component {
     )
   }
 }
-export default Login
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Login)
 
 class DrumGede extends Component {
   render () {
@@ -98,9 +134,9 @@ class DrumKecil extends Component {
     return (
       <>
         <View style={styles.drumKecil}>
-            <View style={styles.drumKecilLuar}>
-              <View style={styles.drumKecilDalem} />
-            </View>
+          <View style={styles.drumKecilLuar}>
+            <View style={styles.drumKecilDalem} />
+          </View>
         </View>
       </>
     )
