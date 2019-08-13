@@ -47,6 +47,7 @@ class LeaderBoard extends Component {
                 <View style={styles.profile}>
                   <TouchableOpacity onPress={() => console.warn('terpencet')}>
                     <Image
+                      progressiveRenderingEnabled
                       style={styles.profileImage}
                       source={{
                         uri: 'https://randomuser.me/api/portraits/women/48.jpg'
