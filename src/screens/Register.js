@@ -3,23 +3,50 @@ import {
   Text,
   View,
   StatusBar,
-  StyleSheet,
   TextInput,
   TouchableOpacity
 } from 'react-native'
 import { Button } from 'react-native-paper'
+import { connect } from 'react-redux'
+import { addUser } from '../public/redux/action/user'
 const styles = require('../styles/Form')
 
-class Login extends Component {
+class Register extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      user: []
+    }
+  }
   render () {
+    const add = () => {
+      this.state.user.push({
+        email: this.state.email,
+        password: this.state.password,
+        username: this.state.username
+      })
+      adduser()
+    }
+    let adduser = async () => {
+      console.log(`testes`,this.state.user)
+      await this.props.dispatch(addUser(this.state.user[0])).then(() => {
+        this.props.navigation.navigate('Login')
+        console.log('berhasil')
+      })
+    }
+
     return (
       <>
-        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" barStyle='dark-content' />
+        <StatusBar
+          translucent
+          backgroundColor='rgba(0, 0, 0, 0)'
+          barStyle='dark-content'
+        />
         <View style={styles.background}>
           <View style={{ top: 30, left: -20, position: 'absolute' }}>
             <DrumGede />
           </View>
-          <View style={{ top: 40, right: -20, position:'absolute' }}>
+          <View style={{ top: 40, right: -20, position: 'absolute' }}>
             <DrumKecil />
           </View>
           <View style={styles.body}>
@@ -38,6 +65,7 @@ class Login extends Component {
                 onSubmitEditing={() => {
                   this.firstTextInput.focus()
                 }}
+                onChangeText={(username) => this.setState({ username })}
                 returnKeyType={'next'}
                 placeholder='Username'
                 placeholderTextColor='grey'
@@ -53,6 +81,7 @@ class Login extends Component {
                 onSubmitEditing={() => {
                   this.secondTextInput.focus()
                 }}
+                onChangeText={(email) => this.setState({ email })}
                 returnKeyType={'next'}
                 placeholder='Email'
                 placeholderTextColor='grey'
@@ -62,6 +91,7 @@ class Login extends Component {
                 ref={input => {
                   this.secondTextInput = input
                 }}
+                onChangeText={(password) => this.setState({ password })}
                 style={styles.inputText}
                 placeholder='Password'
                 placeholderTextColor='grey'
@@ -71,7 +101,7 @@ class Login extends Component {
               <Button
                 icon='add'
                 mode='contained'
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={add}
                 style={styles.buttonLogin}
               >
                 register
@@ -91,7 +121,14 @@ class Login extends Component {
     )
   }
 }
-export default Login
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Register)
 
 class DrumGede extends Component {
   render () {
