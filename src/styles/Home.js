@@ -45,6 +45,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#6F1EB3',
     position: 'absolute'
   },
+  drumGedePencetLuar: {
+    width: 120,
+    height: 120,
+    borderRadius: 120 / 2,
+    backgroundColor: '#FF4238',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 8
+  },
+  drumGedePencetDalem: {
+    width: 70,
+    height: 70,
+    borderRadius: 100 / 2,
+    backgroundColor: '#7F1B16',
+    position: 'absolute'
+  },
   drumGede: {
     width: '100%',
     height: 20,
@@ -66,6 +82,22 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 100 / 2,
     backgroundColor: '#AAB330',
+    position: 'absolute'
+  },
+  drumKecilPencetLuar: {
+    width: 90,
+    height: 90,
+    borderRadius: 100 / 2,
+    backgroundColor: '#FF4238',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 8
+  },
+  drumKecilPencetDalem: {
+    width: 55,
+    height: 55,
+    borderRadius: 100 / 2,
+    backgroundColor: '#7F1B16',
     position: 'absolute'
   },
   drumKecil: {

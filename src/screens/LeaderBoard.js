@@ -30,7 +30,7 @@ class LeaderBoard extends Component {
       ]
     }
 
-    AsyncStorage.getItem('jwtToken', (error, result) => {
+    AsyncStorage.getItem('token', (error, result) => {
       if (result) {
         this.setState({
           token: result

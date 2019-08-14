@@ -30,7 +30,7 @@ export const login = data => {
         const status = res.data.result.status
         console.log(username, token)
         AsyncStorage.setItem('id_user', id_user)
-        AsyncStorage.setItem('jwtToken', token)
+        AsyncStorage.setItem('token', token)
         AsyncStorage.setItem('username', username)
         AsyncStorage.setItem('email', email)
         AsyncStorage.setItem('status', status)
