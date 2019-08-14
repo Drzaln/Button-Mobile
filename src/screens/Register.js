@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, Snackbar } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { addUser } from '../public/redux/action/user'
 const styles = require('../styles/Form')
@@ -28,11 +28,16 @@ class Register extends Component {
       adduser()
     }
     let adduser = async () => {
-      console.log(`testes`,this.state.user)
-      await this.props.dispatch(addUser(this.state.user[0])).then(() => {
-        this.props.navigation.navigate('Login')
-        console.log('berhasil')
-      })
+      console.log(`testes`, this.state.user)
+      await this.props
+        .dispatch(addUser(this.state.user[0]))
+        .then(() => {
+          this.props.navigation.navigate('Login')
+          console.log('berhasil')
+        })
+        .catch(() => {
+          alert('Username already used')
+        })
     }
 
     return (
@@ -65,7 +70,7 @@ class Register extends Component {
                 onSubmitEditing={() => {
                   this.firstTextInput.focus()
                 }}
-                onChangeText={(username) => this.setState({ username })}
+                onChangeText={username => this.setState({ username })}
                 returnKeyType={'next'}
                 placeholder='Username'
                 placeholderTextColor='grey'
@@ -81,7 +86,7 @@ class Register extends Component {
                 onSubmitEditing={() => {
                   this.secondTextInput.focus()
                 }}
-                onChangeText={(email) => this.setState({ email })}
+                onChangeText={email => this.setState({ email })}
                 returnKeyType={'next'}
                 placeholder='Email'
                 placeholderTextColor='grey'
@@ -91,7 +96,7 @@ class Register extends Component {
                 ref={input => {
                   this.secondTextInput = input
                 }}
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={password => this.setState({ password })}
                 style={styles.inputText}
                 placeholder='Password'
                 placeholderTextColor='grey'
@@ -154,24 +159,6 @@ class DrumKecil extends Component {
           </View>
         </View>
       </>
-    )
-  }
-}
-
-class Logo extends Component {
-  render () {
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 2 }}>
-          <Text style={styles.logo}>BUTT</Text>
-        </View>
-        <View style={{ flex: 1, alignItems: 'flex-start', marginRight: 5 }}>
-          <DrumGede />
-        </View>
-        <View style={{ flex: 3 }}>
-          <Text style={styles.logo}>N</Text>
-        </View>
-      </View>
     )
   }
 }

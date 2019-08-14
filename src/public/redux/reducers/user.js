@@ -28,6 +28,26 @@ const user = (state = initialState, action) => {
         isFulfilled: true,
         userList: [state.userList, action.payload]
       }
+    case 'LOGOUT_PENDING':
+      return {
+        ...state,
+        isLoading: true,
+        isFulfilled: false,
+        isRejected: false
+      }
+    case 'LOGOUT_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true
+      }
+    case 'LOGOUT_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isFulfilled: true,
+        userList: action.payload.data.result
+      }
     case 'REGISTER_PENDING':
       return {
         ...state,

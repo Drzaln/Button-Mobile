@@ -1,32 +1,32 @@
 import React, { Component } from 'react'
 import { Text, View, StatusBar, Image, TouchableOpacity } from 'react-native'
 import { FAB } from 'react-native-paper'
-import Sound from "react-native-sound";
+import Sound from 'react-native-sound'
 const styles = require('../styles/Home')
 
-const sound1 = new Sound(require('../assets/bassDrum.wav'), null, (error) => {
-  if (error){
+const sound1 = new Sound(require('../assets/bassDrum.wav'), null, error => {
+  if (error) {
     console.warn(error)
   }
   sound1.setVolume(1.0)
 })
 
-const sound2 = new Sound(require('../assets/Bassdrums19.wav'), null, (error) => {
-  if (error){
+const sound2 = new Sound(require('../assets/Bassdrums19.wav'), null, error => {
+  if (error) {
     console.warn(error)
   }
   sound2.setVolume(1.0)
 })
 
-const sound3 = new Sound(require('../assets/Percussion4.wav'), null, (error) => {
-  if (error){
+const sound3 = new Sound(require('../assets/Percussion4.wav'), null, error => {
+  if (error) {
     console.warn(error)
   }
   sound3.setVolume(1.0)
 })
 
-const sound4 = new Sound(require('../assets/HitHat9.wav'), null, (error) => {
-  if (error){
+const sound4 = new Sound(require('../assets/HitHat9.wav'), null, error => {
+  if (error) {
     console.warn(error)
   }
   sound4.setVolume(1.0)
@@ -41,7 +41,7 @@ class Home extends Component {
           <FAB
             style={styles.fab}
             icon='menu'
-            onPress={() => this.props.navigation.navigate('LeaderBoard')}
+            onPress={() => this.props.navigation.push('LeaderBoard')}
           />
           <View style={styles.poin}>
             <Text style={styles.teks}>Combo Hit </Text>

@@ -28,7 +28,7 @@ export const login = data => {
         const username = res.data.result.username
         const email = res.data.result.email
         const status = res.data.result.status
-        console.log(username)
+        console.log(username, token)
         AsyncStorage.setItem('id_user', id_user)
         AsyncStorage.setItem('jwtToken', token)
         AsyncStorage.setItem('username', username)
@@ -40,6 +40,7 @@ export const login = data => {
 
 export const logout = (data, jwt) => {
   return {
+    type : 'LOGOUT',
     payload: axios.post(
       url + `user/logout`,
       { id_user: data },
