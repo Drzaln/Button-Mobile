@@ -10,6 +10,9 @@ import {
 } from 'react-native'
 import { FAB } from 'react-native-paper'
 import Sound from 'react-native-sound'
+import { addScore } from '../public/redux/action/score'
+import { getPatternActive } from '../public/redux/action/pattern'
+import { connect } from 'react-redux'
 const styles = require('../styles/Home')
 
 class Home extends Component {
@@ -18,35 +21,12 @@ class Home extends Component {
     this.state = {
       combo: 0,
       score: 0,
-      pattern: [
-        1,
-        2,
-        3,
-        1,
-        3,
-        1,
-        1,
-        2,
-        4,
-        2,
-        3,
-        4,
-        4,
-        1,
-        2,
-        3,
-        4,
-        4,
-        4,
-        4,
-        4,
-        1,
-        2
-      ],
+      pattern: [],
       isNow: 0,
       button: 1,
       id_user: '',
-      token: ''
+      token: '',
+      data: this.props.navigation.getParam('data')
     }
     AsyncStorage.getItem('id_user', (error, result) => {
       if (result) {
@@ -64,7 +44,104 @@ class Home extends Component {
     })
   }
 
+  componentDidMount = async () => {
+    await this.props.dispatch(getPatternActive())
+    console.log(`teste`, this.props)
+    this.setState({
+      pattern: this.props.pattern.patternList[0].pattern
+        .split('')
+        .map(Number),
+      combo: this.props.pattern.patternList[0].combo
+    })
+    this.setState({
+      button: this.state.pattern[0]
+    })
+  }
+
+  add = () => {
+    console.log(`data`, this.state.data)
+    if (this.state.data === undefined) {
+      console.log('Token', this.state.token)
+      if (this.state.token === '') {
+        Alert.alert(
+          'Not Login !!!',
+          `Your Cant Save The Score : ${this.state.score}`, // <- this part is optional, you can pass an empty string
+          [
+            {
+              text: 'Login',
+              onPress: () => this.props.navigation.navigate('Login')
+            },
+            {
+              text: 'Cancel ',
+              onPress: () => this.props.navigation.navigate('Home')
+            }
+          ]
+        )
+        this.setState({
+          score: 0,
+          hasil: 0,
+          isNow: 0,
+          combo: 0,
+          button: this.state.pattern[0]
+        })
+      } else {
+        console.log(this.state.token)
+        const data = {
+          id_user: Number(this.state.id_user),
+          score: this.state.score
+        }
+        this.props
+          .dispatch(
+            addScore(Number(this.state.id_user), this.state.token, data)
+          )
+          .then(() => {
+            this.setState({
+              score: 0,
+              hasil: 0,
+              isNow: 0,
+              combo: 0,
+              button: this.state.pattern[0]
+            })
+            this.props.navigation.navigate('Home')
+          })
+      }
+    } else {
+      console.log(this.state.data.score)
+      if (this.state.data.score < this.state.score) {
+        console.log(this.state.data.score)
+        const data = {
+          id_user: Number(this.state.id_user),
+          score: this.state.score
+        }
+        this.props
+          .dispatch(
+            updateScore(Number(this.state.id_user), this.state.token, data)
+          )
+          .then(() => {
+            this.setState({
+              score: 0,
+              hasil: 0,
+              isNow: 0,
+              combo: 0,
+              button: this.state.pattern[0]
+            })
+            this.props.navigation.navigate('Home')
+          })
+      } else {
+        this.setState({
+          score: 0,
+          hasil: 0,
+          isNow: 0,
+          combo: 0,
+          button: this.state.pattern[0]
+        })
+        this.props.navigation.navigate('Home')
+      }
+    }
+  }
+
   sound1 = async () => {
+    console.log(`datanya`, this.state.data)
     const requireAudio = require('../assets/bassDrum.wav')
     const s = new Sound(requireAudio, e => {
       if (e) {
@@ -87,7 +164,7 @@ class Home extends Component {
       })
     } else {
       Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => console.log('terpencet') }
+        { text: 'Save Score', onPress: () => this.add() }
       ])
     }
     await this.setState({
@@ -118,7 +195,7 @@ class Home extends Component {
       })
     } else {
       Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => console.log('terpencet') }
+        { text: 'Save Score', onPress: () => this.add() }
       ])
     }
     await this.setState({
@@ -149,7 +226,7 @@ class Home extends Component {
       })
     } else {
       Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => console.log('terpencet') }
+        { text: 'Save Score', onPress: () => this.add() }
       ])
     }
     await this.setState({
@@ -180,7 +257,7 @@ class Home extends Component {
       })
     } else {
       Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => console.log('terpencet') }
+        { text: 'Save Score', onPress: () => this.add() }
       ])
     }
     await this.setState({
@@ -189,6 +266,7 @@ class Home extends Component {
   }
 
   render () {
+    console.log(`pattern`, this.state.pattern)
     return (
       <>
         <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
@@ -208,14 +286,30 @@ class Home extends Component {
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
-            {this.state.button == 3 ? <DrumKecilPencet suara={this.sound3.bind(this)} /> : <DrumKecil suara={this.sound3.bind(this)} /> }
-            {this.state.button == 4 ? <DrumKecilPencet suara={this.sound4.bind(this)} /> : <DrumKecil suara={this.sound4.bind(this)} /> }
+              {this.state.button == 3 ? (
+                <DrumKecilPencet suara={this.sound3.bind(this)} />
+              ) : (
+                <DrumKecil suara={this.sound3.bind(this)} />
+              )}
+              {this.state.button == 4 ? (
+                <DrumKecilPencet suara={this.sound4.bind(this)} />
+              ) : (
+                <DrumKecil suara={this.sound4.bind(this)} />
+              )}
             </View>
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
             >
-            {this.state.button == 1 ? <DrumGedePencet suara={this.sound1.bind(this)} /> : <DrumGede suara={this.sound1.bind(this)} /> }
-            {this.state.button == 2 ? <DrumGedePencet suara={this.sound2.bind(this)} /> : <DrumGede suara={this.sound2.bind(this)} /> }
+              {this.state.button == 1 ? (
+                <DrumGedePencet suara={this.sound1.bind(this)} />
+              ) : (
+                <DrumGede suara={this.sound1.bind(this)} />
+              )}
+              {this.state.button == 2 ? (
+                <DrumGedePencet suara={this.sound2.bind(this)} />
+              ) : (
+                <DrumGede suara={this.sound2.bind(this)} />
+              )}
             </View>
           </View>
           <Image source={require('../assets/musik.png')} style={styles.musik} />
@@ -224,7 +318,15 @@ class Home extends Component {
     )
   }
 }
-export default Home
+
+const mapStateToProps = state => {
+  return {
+    score: state.score,
+    pattern: state.pattern
+  }
+}
+
+export default connect(mapStateToProps)(Home)
 
 class DrumGede extends Component {
   render () {

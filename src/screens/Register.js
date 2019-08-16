@@ -4,7 +4,7 @@ import {
   View,
   StatusBar,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, Alert
 } from 'react-native'
 import { Button, Snackbar } from 'react-native-paper'
 import { connect } from 'react-redux'
@@ -33,10 +33,14 @@ class Register extends Component {
         .dispatch(addUser(this.state.user[0]))
         .then(() => {
           this.props.navigation.navigate('Login')
-          console.log('berhasil')
+          Alert.alert('Register Success', `Please login to save score`, [
+            { text: 'Login', onPress: () => this.props.navigation.navigate('Login')}
+          ])
         })
         .catch(() => {
-          alert('Username already used')
+          Alert.alert('Register Failed', `Username already used`, [
+            { text: 'Okay', onPress: () => this.props.navigation.navigate('Login')}
+          ])
         })
     }
 
