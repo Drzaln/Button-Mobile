@@ -13,7 +13,6 @@ export const addUser = data => {
   }
 }
 export const login = data => {
-  console.log(data)
   return {
     type: 'LOGIN',
     payload: axios

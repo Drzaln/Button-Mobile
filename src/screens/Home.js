@@ -9,6 +9,7 @@ import {
   Alert
 } from 'react-native'
 import { FAB } from 'react-native-paper'
+import Spinner from 'react-native-loading-spinner-overlay'
 import Sound from 'react-native-sound'
 import { addScore } from '../public/redux/action/score'
 import { getPatternActive } from '../public/redux/action/pattern'
@@ -27,7 +28,8 @@ class Home extends Component {
       button: 1,
       id_user: '',
       token: '',
-      data: []
+      data: [],
+      spinner: false
     }
     AsyncStorage.getItem('id_user', (error, result) => {
       if (result) {
@@ -46,7 +48,22 @@ class Home extends Component {
   }
 
   componentDidMount = async () => {
-    await this.props.dispatch(getPatternActive())
+    this.setState({
+      spinner: true
+    })
+    await this.props
+      .dispatch(getPatternActive())
+      .then(() => {
+        this.setState({
+          spinner: false
+        })
+      })
+      .catch(err => {
+        this.setState({
+          spinner: false
+        })
+        Alert.alert('Get Data Failed', `${err} Network error`)
+      })
     this.setState({
       pattern: this.props.pattern.patternList[0].pattern.split('').map(Number),
       combo: this.props.pattern.patternList[0].combo
@@ -161,12 +178,16 @@ class Home extends Component {
     } else {
       {
         this.state.token == ''
-          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
-            {
-              text: 'Login',
-              onPress: () => this.props.navigation.navigate('Login')
-            }
-          ])
+          ? Alert.alert(
+            "Lose ! You're not logged in",
+            `Your Score : ${this.state.score}`,
+            [
+              {
+                text: 'Login',
+                onPress: () => this.props.navigation.navigate('Login')
+              }
+            ]
+          )
           : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
             { text: 'Save Score', onPress: () => this.add() }
           ])
@@ -201,12 +222,16 @@ class Home extends Component {
     } else {
       {
         this.state.token == ''
-          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
-            {
-              text: 'Login',
-              onPress: () => this.props.navigation.navigate('Login')
-            }
-          ])
+          ? Alert.alert(
+            "Lose ! You're not logged in",
+            `Your Score : ${this.state.score}`,
+            [
+              {
+                text: 'Login',
+                onPress: () => this.props.navigation.navigate('Login')
+              }
+            ]
+          )
           : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
             { text: 'Save Score', onPress: () => this.add() }
           ])
@@ -241,12 +266,16 @@ class Home extends Component {
     } else {
       {
         this.state.token == ''
-          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
-            {
-              text: 'Login',
-              onPress: () => this.props.navigation.navigate('Login')
-            }
-          ])
+          ? Alert.alert(
+            "Lose ! You're not logged in",
+            `Your Score : ${this.state.score}`,
+            [
+              {
+                text: 'Login',
+                onPress: () => this.props.navigation.navigate('Login')
+              }
+            ]
+          )
           : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
             { text: 'Save Score', onPress: () => this.add() }
           ])
@@ -281,12 +310,16 @@ class Home extends Component {
     } else {
       {
         this.state.token == ''
-          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
-            {
-              text: 'Login',
-              onPress: () => this.props.navigation.navigate('Login')
-            }
-          ])
+          ? Alert.alert(
+            "Lose ! You're not logged in",
+            `Your Score : ${this.state.score}`,
+            [
+              {
+                text: 'Login',
+                onPress: () => this.props.navigation.navigate('Login')
+              }
+            ]
+          )
           : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
             { text: 'Save Score', onPress: () => this.add() }
           ])
@@ -302,6 +335,11 @@ class Home extends Component {
       <>
         <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
         <View style={styles.background}>
+          <Spinner
+            visible={this.state.spinner}
+            textContent={'Get Data...'}
+            textStyle={{ color: '#fff' }}
+          />
           <FAB
             style={styles.fab}
             icon='menu'
