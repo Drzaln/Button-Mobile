@@ -264,7 +264,6 @@ class Home extends Component {
   }
 
   render () {
-    console.log(`pattern`, this.state.pattern)
     return (
       <>
         <StatusBar backgroundColor='#fafdcb' barStyle='dark-content' />
