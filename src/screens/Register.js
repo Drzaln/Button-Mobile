@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity, Alert
 } from 'react-native'
-import { Button, Snackbar } from 'react-native-paper'
+import { Button} from 'react-native-paper'
+import Spinner from 'react-native-loading-spinner-overlay'
 import { connect } from 'react-redux'
 import { addUser } from '../public/redux/action/user'
 const styles = require('../styles/Form')
@@ -15,11 +16,15 @@ class Register extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: []
+      user: [],
+      spinner: false
     }
   }
   render () {
     const add = () => {
+      this.setState({
+        spinner: true
+      })
       this.state.user.push({
         email: this.state.email,
         password: this.state.password,
@@ -32,12 +37,18 @@ class Register extends Component {
       await this.props
         .dispatch(addUser(this.state.user[0]))
         .then(() => {
+          this.setState({
+            spinner: false
+          })
           this.props.navigation.navigate('Login')
           Alert.alert('Register Success', `Please login to save score`, [
             { text: 'Login', onPress: () => this.props.navigation.navigate('Login')}
           ])
         })
         .catch(() => {
+          this.setState({
+            spinner: false
+          })
           Alert.alert('Register Failed', `Username already used`, [
             { text: 'Okay', onPress: () => this.props.navigation.navigate('Login')}
           ])

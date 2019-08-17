@@ -13,6 +13,7 @@ import Sound from 'react-native-sound'
 import { addScore } from '../public/redux/action/score'
 import { getPatternActive } from '../public/redux/action/pattern'
 import { connect } from 'react-redux'
+import { getScoreId, updateScore } from "../public/redux/action/score";
 const styles = require('../styles/Home')
 
 class Home extends Component {
@@ -26,7 +27,7 @@ class Home extends Component {
       button: 1,
       id_user: '',
       token: '',
-      data: this.props.navigation.getParam('data')
+      data: []
     }
     AsyncStorage.getItem('id_user', (error, result) => {
       if (result) {
@@ -46,7 +47,6 @@ class Home extends Component {
 
   componentDidMount = async () => {
     await this.props.dispatch(getPatternActive())
-    console.log(`teste`, this.props)
     this.setState({
       pattern: this.props.pattern.patternList[0].pattern
         .split('')
@@ -56,16 +56,18 @@ class Home extends Component {
     this.setState({
       button: this.state.pattern[0]
     })
+    await this.props.dispatch(getScoreId(this.state.id_user))
+    this.setState({
+      data: this.props.score.scoreListId[0]
+    })
   }
 
   add = () => {
-    console.log(`data`, this.state.data)
     if (this.state.data === undefined) {
-      console.log('Token', this.state.token)
       if (this.state.token === '') {
         Alert.alert(
           'Not Login !!!',
-          `Your Cant Save The Score : ${this.state.score}`, // <- this part is optional, you can pass an empty string
+          `Your Cant Save The Score : ${this.state.score}`,
           [
             {
               text: 'Login',
@@ -85,7 +87,6 @@ class Home extends Component {
           button: this.state.pattern[0]
         })
       } else {
-        console.log(this.state.token)
         const data = {
           id_user: Number(this.state.id_user),
           score: this.state.score
@@ -106,9 +107,7 @@ class Home extends Component {
           })
       }
     } else {
-      console.log(this.state.data.score)
       if (this.state.data.score < this.state.score) {
-        console.log(this.state.data.score)
         const data = {
           id_user: Number(this.state.id_user),
           score: this.state.score
@@ -141,7 +140,6 @@ class Home extends Component {
   }
 
   sound1 = async () => {
-    console.log(`datanya`, this.state.data)
     const requireAudio = require('../assets/bassDrum.wav')
     const s = new Sound(requireAudio, e => {
       if (e) {

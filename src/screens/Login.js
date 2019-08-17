@@ -8,7 +8,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { Button } from 'react-native-paper'
-import { login } from "../public/redux/action/user";
+import Spinner from 'react-native-loading-spinner-overlay'
+import { login } from '../public/redux/action/user'
 const styles = require('../styles/Form')
 
 class Login extends Component {
@@ -17,12 +18,16 @@ class Login extends Component {
     this.state = {
       user: [],
       username: '',
-      password: ''
+      password: '',
+      spinner: false
     }
   }
 
   render () {
     const loginAction = () => {
+      this.setState({
+        spinner: true
+      })
       this.state.user.push({
         username: this.state.username,
         password: this.state.password
@@ -30,10 +35,20 @@ class Login extends Component {
       loginuser()
     }
     let loginuser = async () => {
-      await this.props.dispatch(login(this.state.user[0])).then(() => {
-        this.props.navigation.navigate('Home')
-        console.log('berhasil')
-      })
+      await this.props
+        .dispatch(login(this.state.user[0]))
+        .then(() => {
+          this.setState({
+            spinner: false
+          })
+          this.props.navigation.push('Home')
+        })
+        .catch(err => {
+          this.setState({
+            spinner: false
+          })
+          alert('Gagal ' + err)
+        })
     }
 
     return (
@@ -44,6 +59,11 @@ class Login extends Component {
           barStyle='dark-content'
         />
         <View style={styles.background}>
+          <Spinner
+            visible={this.state.spinner}
+            textContent={'Loading...'}
+            textStyle={{ color: '#fff' }}
+          />
           <View style={{ top: 30, left: -20, position: 'absolute' }}>
             <DrumGede />
           </View>
@@ -66,7 +86,7 @@ class Login extends Component {
                 onSubmitEditing={() => {
                   this.secondTextInput.focus()
                 }}
-                onChangeText={(username) => this.setState({ username })}
+                onChangeText={username => this.setState({ username })}
                 returnKeyType={'next'}
                 placeholder='Username'
                 placeholderTextColor='grey'
@@ -77,7 +97,7 @@ class Login extends Component {
                 ref={input => {
                   this.secondTextInput = input
                 }}
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={password => this.setState({ password })}
                 style={styles.inputText}
                 placeholder='Password'
                 placeholderTextColor='grey'

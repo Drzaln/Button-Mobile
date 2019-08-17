@@ -1,5 +1,6 @@
 const initialState = {
   scoreList: [],
+  scoreListId:[],
   isLoading: false,
   isFulfilled: false,
   isRejected: false
@@ -45,7 +46,7 @@ const score = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isFulfilled: true,
-        scoreList: action.payload.data.result
+        scoreListId: action.payload.data.result
       }
     case 'POST_SCORE_PENDING':
       return {
