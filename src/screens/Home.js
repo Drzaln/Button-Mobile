@@ -13,7 +13,7 @@ import Sound from 'react-native-sound'
 import { addScore } from '../public/redux/action/score'
 import { getPatternActive } from '../public/redux/action/pattern'
 import { connect } from 'react-redux'
-import { getScoreId, updateScore } from "../public/redux/action/score";
+import { getScoreId, updateScore } from '../public/redux/action/score'
 const styles = require('../styles/Home')
 
 class Home extends Component {
@@ -48,9 +48,7 @@ class Home extends Component {
   componentDidMount = async () => {
     await this.props.dispatch(getPatternActive())
     this.setState({
-      pattern: this.props.pattern.patternList[0].pattern
-        .split('')
-        .map(Number),
+      pattern: this.props.pattern.patternList[0].pattern.split('').map(Number),
       combo: this.props.pattern.patternList[0].combo
     })
     this.setState({
@@ -67,7 +65,7 @@ class Home extends Component {
       if (this.state.token === '') {
         Alert.alert(
           'Not Login !!!',
-          `Your Cant Save The Score : ${this.state.score}`,
+          `You Cant Save The Score : ${this.state.score}`,
           [
             {
               text: 'Login',
@@ -161,9 +159,18 @@ class Home extends Component {
         isNow: this.state.isNow + 1
       })
     } else {
-      Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => this.add() }
-      ])
+      {
+        this.state.token == ''
+          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
+            {
+              text: 'Login',
+              onPress: () => this.props.navigation.navigate('Login')
+            }
+          ])
+          : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
+            { text: 'Save Score', onPress: () => this.add() }
+          ])
+      }
     }
     await this.setState({
       button: this.state.pattern[this.state.isNow]
@@ -192,9 +199,18 @@ class Home extends Component {
         isNow: this.state.isNow + 1
       })
     } else {
-      Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => this.add() }
-      ])
+      {
+        this.state.token == ''
+          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
+            {
+              text: 'Login',
+              onPress: () => this.props.navigation.navigate('Login')
+            }
+          ])
+          : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
+            { text: 'Save Score', onPress: () => this.add() }
+          ])
+      }
     }
     await this.setState({
       button: this.state.pattern[this.state.isNow]
@@ -223,9 +239,18 @@ class Home extends Component {
         isNow: this.state.isNow + 1
       })
     } else {
-      Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => this.add() }
-      ])
+      {
+        this.state.token == ''
+          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
+            {
+              text: 'Login',
+              onPress: () => this.props.navigation.navigate('Login')
+            }
+          ])
+          : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
+            { text: 'Save Score', onPress: () => this.add() }
+          ])
+      }
     }
     await this.setState({
       button: this.state.pattern[this.state.isNow]
@@ -254,9 +279,18 @@ class Home extends Component {
         isNow: this.state.isNow + 1
       })
     } else {
-      Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
-        { text: 'Save Score', onPress: () => this.add() }
-      ])
+      {
+        this.state.token == ''
+          ? Alert.alert("Lose ! You're not logged in", `Your Score : ${this.state.score}`, [
+            {
+              text: 'Login',
+              onPress: () => this.props.navigation.navigate('Login')
+            }
+          ])
+          : Alert.alert('Lose !!!', `Your Score : ${this.state.score}`, [
+            { text: 'Save Score', onPress: () => this.add() }
+          ])
+      }
     }
     await this.setState({
       button: this.state.pattern[this.state.isNow]
