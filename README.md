@@ -10,6 +10,7 @@
 - [Requirements](#requirements)
 - [Usage](#usage)
 - [Screenshoot](#screenshoot)
+- [GIF](#gif)
 - [Related Project](#related-project)
 
 ## Introduction
@@ -34,6 +35,9 @@ this game will increment the score if we tap the red button.
 ## Screenshoot
 
 <img src="src/shot.png" width="500px;" alt="X"/>
+
+## GIF
+[![button6780b755b69ecaac.gif](https://s3.gifyu.com/images/button6780b755b69ecaac.gif)](https://gifyu.com/image/hQUo)
 
   
 ## Related Project
