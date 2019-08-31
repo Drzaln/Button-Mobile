@@ -37,8 +37,7 @@ this game will increment the score if we tap the red button.
 <img src="src/shot.png" width="500px;" alt="X"/>
 
 ## GIF
-[![button6780b755b69ecaac.gif](https://s3.gifyu.com/images/button6780b755b69ecaac.gif)](https://gifyu.com/image/hQUo)
-
+<div style="width:100%;height:0;padding-bottom:178%;position:relative;"><iframe src="https://giphy.com/embed/S9iGtlb82dF9wLj7ew" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/S9iGtlb82dF9wLj7ew"></a></p>
   
 ## Related Project
  
